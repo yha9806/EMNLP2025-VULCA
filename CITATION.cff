@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "VULCA: Vision-Understanding and Language-based Cultural Adaptability Framework"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Framework Contributors"
+    given-names: "VULCA"
+repository-code: "https://github.com/yha9806/EMNLP2025-VULCA"
+url: "https://github.com/yha9806/EMNLP2025-VULCA"
+abstract: "A comprehensive evaluation framework for assessing Multimodal Large Language Models' cultural understanding capabilities through Chinese painting critique tasks."
+keywords:
+  - multimodal learning
+  - large language models
+  - cultural understanding
+  - Chinese art
+  - evaluation framework
+  - EMNLP 2025
+license: MIT
+version: 1.0.0
+date-released: 2025-01-01
+conference:
+  name: "2025 Conference on Empirical Methods in Natural Language Processing"
+  abbreviation: "EMNLP 2025"
+  location: "Suzhou, China"
+  date: "November 5-9, 2025"

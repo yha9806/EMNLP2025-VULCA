@@ -1,0 +1,19 @@
+{
+    "folders": [
+		{
+			"path": "data"
+		},
+		{
+			"path": "experiment"
+		},
+		{
+			"path": "docs"
+		},
+		{
+			"path": "result"
+		}
+	],
+    "settings": {
+        "powershell.cwd": "experiment"
+    }
+}

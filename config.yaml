@@ -1,0 +1,90 @@
+# VULCA Framework Configuration
+
+# Model Configuration
+model:
+  default: "Qwen/Qwen2.5-VL-7B-Instruct"
+  api_endpoint: "http://localhost:8000"
+  api_type: "vllm"  # Options: vllm, huggingface
+  max_tokens: 2048
+  temperature: 0.7
+  top_p: 0.95
+
+# Image Preprocessing
+preprocessing:
+  # Adaptive sliding window sizes (in pixels)
+  window_sizes: [2560, 1280, 640]
+  output_size: 640
+  stride_factors:
+    low_saliency: 0.9
+    medium_saliency: 0.75
+    high_saliency: 0.5
+  saliency:
+    method: "sobel_lbp"  # Sobel edge + LBP texture
+    thresholds:
+      low: 0.25
+      high: 0.6
+
+# Analysis Configuration
+analysis:
+  embedding_model: "BAAI/bge-large-zh-v1.5"
+  embedding_dimension: 1024
+  metrics:
+    - cosine_similarity
+    - earth_movers_distance
+    - profile_alignment
+  clustering:
+    method: "kmeans"
+    n_clusters: 5
+
+# Persona System
+personas:
+  enabled: true
+  profiles:
+    - id: traditional_scholar
+      name: "传统文人"
+      description: "Song Dynasty literati perspective"
+    - id: modern_curator
+      name: "现代策展人"
+      description: "Contemporary museum curator"
+    - id: art_historian
+      name: "艺术史学家"
+      description: "Academic art history perspective"
+    - id: cultural_preservationist
+      name: "文化保护者"
+      description: "Heritage conservation focus"
+    - id: contemporary_artist
+      name: "当代艺术家"
+      description: "Modern artistic interpretation"
+    - id: art_educator
+      name: "艺术教育者"
+      description: "Educational perspective"
+    - id: collector
+      name: "收藏家"
+      description: "Connoisseur and market perspective"
+    - id: general_audience
+      name: "普通观众"
+      description: "General public appreciation"
+
+# Knowledge Base
+knowledge:
+  categories:
+    - chinese_landscape_painting
+    - qing_court_painting
+    - giuseppe_castiglione
+    - twelve_months_paintings
+  max_context_snippets: 3
+  retrieval_method: "semantic_similarity"
+
+# Output Configuration
+output:
+  results_dir: "results"
+  figures_dir: "results/figures"
+  metrics_dir: "results/metrics"
+  format: "json"  # Options: json, csv, both
+  save_intermediate: true
+
+# Logging
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+  file: "vulca.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

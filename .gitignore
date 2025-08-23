@@ -1,0 +1,80 @@
+# Paper source files - EXCLUDED FROM REPOSITORY
+deployed_content/Paper_writing/
+
+# Git repositories
+VULCA-Framework/
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Model caches
+models/
+checkpoints/
+
+# Large data files
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# nul files
+nul
+
+# CRITICAL EXCLUSIONS - MUST NOT UPLOAD
+node_modules/
+**/node_modules/
+package-lock.json
+yarn.lock
+
+# Paper and documentation - EXCLUDED
+deployed_content/Paper_writing/
+**/paper_writing/
+**/docs/paper_writing/
+
+# Processed images - EXCLUDED
+**/proceed/
+**/slice_*.png
+**/saliency_heatmap.png
+**/sliding_trajectory.png
+**/*_slice_*.png
+
+# Analysis results images
+**/result/analysis_results/*.png
+**/result/eda_plots/*.png
+
+# LaTeX build files
+*.bbl
+*.blg
+*.synctex(busy)
+
+# Tasks folder
+.tasks/

@@ -1,0 +1,33 @@
+# 计算美学和定量艺术分析 (Computational Aesthetics and Quantitative Art Analysis)
+
+## 主要文献引用
+
+
+4. Wang (2024): The Changes of "Shen" and "Yi" in Chinese Painting Aesthetics: From Gu Kaizhi to Ni Zan
+@article{Wang2024ChangesShenYi,
+    author  = {Wang, Y.},
+    title   = {The Changes of ``Shen'' and ``Yi'' in Chinese Painting Aesthetics: From Gu Kaizhi to Ni Zan},
+    journal = {Open Access Library Journal},
+    volume  = {11},
+    pages   = {1--6},
+    year    = {2024},
+    doi     = {10.4236/oalib.1111427}
+  }
+
+
+该论文分析了中国绘画美学中“神”（精神）与“意”（意境）的演变，特别是从顾恺之到倪瓒的艺术理论和风格变化。研究指出，这一转变反映了中国绘画从重视形神兼备到追求意境表达的美学发展。
+5. Qi (2024b): The Spirit of Traditional Chinese Aesthetics
+@book{Qi2024SpiritTraditionalChineseAesthetics,
+    author    = {Qi, Zhixiang},
+    title     = {The Spirit of Traditional Chinese Aesthetics},
+    publisher = {Palgrave Macmillan Singapore},
+    year      = {2024},
+    doi       = {10.1007/978-981-99-8791-7},
+    isbn      = {978-981-99-8791-7},
+    edition   = {1},
+    note      = {Copyright Shanghai People's Publishing House}
+  }
+探讨了中国传统美学的核心精神，强调艺术应传达创作者的内在情感和主观体验，体现了中国艺术重“意”轻“形”的审美传统。
+## 研究概述
+
+计算方法在艺术分析中近年来得到了广泛应用。这些方法将定量技术应用于传统上主观的领域，实现对艺术风格、美学判断和文化元素的系统分析。近期研究探索了传统中国美学的计算分析，提供了理解中国绘画中"神"（精神）和"意"（意义）等关键概念的框架。本研究以这些基础为基础，开发了评估AI生成艺术评论的定量方法，特别关注中国绘画传统的独特美学原则。 
