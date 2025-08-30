@@ -206,7 +206,7 @@ class VULCA:
         print(f"\n✓ Batch evaluation complete. {len(results)} evaluations saved.")
         return results
     
-    def run_experiment(self, experiment_config: str = "configs/experiment.yaml"):
+    def run_experiment(self, experiment_config: str = "configs/hyperparams.yaml"):
         """
         Run a complete experiment based on configuration file.
         

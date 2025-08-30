@@ -91,7 +91,7 @@ python src/pipeline.py --skip_preprocessing --skip_evaluation
 │   └── samples/        # Example images
 ├── configs/            # Configuration
 │   ├── model_config.yaml
-│   └── experiment_config.yaml
+│   └── hyperparams.yaml
 ├── outputs/            # Results
 └── docs/               # Documentation
 ```

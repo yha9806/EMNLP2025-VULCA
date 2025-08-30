@@ -18,7 +18,7 @@ logging.basicConfig(
 )
 
 
-def setup_paths(config_path: str = "configs/experiment_config.yaml") -> Dict[str, Path]:
+def setup_paths(config_path: str = "configs/hyperparams.yaml") -> Dict[str, Path]:
     """Setup project paths."""
     project_root = Path(__file__).parent.parent
     return {
@@ -33,8 +33,13 @@ def setup_paths(config_path: str = "configs/experiment_config.yaml") -> Dict[str
 def run_preprocessing(image_dir: str, output_dir: str) -> None:
     """Run image preprocessing with adaptive sliding window."""
     logging.info("Starting image preprocessing...")
-    from preprocessing import process_images
-    process_images(image_dir, output_dir)
+    from preprocess import process_image
+    import os
+    # Process each image in the directory
+    for image_file in os.listdir(image_dir):
+        if image_file.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+            image_path = os.path.join(image_dir, image_file)
+            process_image(image_path, output_dir)
     logging.info("Image preprocessing complete")
 
 
@@ -62,8 +67,25 @@ def run_evaluation(images_dir: str, model_name: str, personas_dir: str) -> None:
 def run_analysis(critiques_dir: str, output_dir: str) -> None:
     """Run semantic analysis on generated critiques."""
     logging.info("Starting semantic analysis...")
-    from analysis import analyze_critiques
-    analyze_critiques(critiques_dir, output_dir)
+    from analyze import analyze_critiques
+    import os
+    import json
+    
+    # Load all critiques from directory
+    critiques = []
+    for critique_file in Path(critiques_dir).glob("*.txt"):
+        with open(critique_file, 'r', encoding='utf-8') as f:
+            critiques.append(f.read())
+    
+    # Analyze critiques
+    results = analyze_critiques(critiques)
+    
+    # Save results
+    os.makedirs(output_dir, exist_ok=True)
+    output_file = os.path.join(output_dir, "analysis_results.json")
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+    
     logging.info("Analysis complete")
 
 
