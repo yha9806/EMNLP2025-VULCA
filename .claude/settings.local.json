@@ -67,7 +67,8 @@
       "Bash(for:*)",
       "Bash(done)",
       "Bash(gh repo view:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\MyhrDyzy",

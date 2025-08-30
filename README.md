@@ -10,11 +10,11 @@ This repository uses a dual-branch structure for clarity:
 
 | Branch | Purpose | Size | Use Case |
 |--------|---------|------|-----------|
-| **main** (current) | Core implementation | <10MB | Quick reproduction |
+| **master** (current) | Core implementation | <10MB | Quick reproduction |
 | **[research](https://github.com/yha9806/EMNLP2025-VULCA/tree/research)** | Complete experiments | ~50MB | Full validation |
 
 ### For Reviewers
-- **Quick Start**: Stay on `main` branch, run `./run_experiments.sh`
+- **Quick Start**: Stay on `master` branch, run `./run_experiments.sh`
 - **Deep Dive**: `git checkout research` for all experimental code and data
 - **Paper Figures**: See `research` branch `/paper_artifacts/` directory
 
@@ -32,7 +32,7 @@ cd EMNLP2025-VULCA
 # Install dependencies
 pip install -r requirements.txt
 
-# Option 1: Quick evaluation (main branch)
+# Option 1: Quick evaluation (master branch)
 python src/vulca.py --image data/samples/january_sample.jpg
 
 # Option 2: Full experiments (research branch)
