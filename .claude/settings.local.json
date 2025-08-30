@@ -63,7 +63,10 @@
       "Bash(git rm:*)",
       "Bash(git reset:*)",
       "Bash(git push:*)",
-      "Bash(git remote add:*)"
+      "Bash(git remote add:*)",
+      "Bash(for:*)",
+      "Bash(done)",
+      "Bash(gh repo view:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\MyhrDyzy",

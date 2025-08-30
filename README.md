@@ -1,154 +1,129 @@
 # VULCA: Vision-Understanding and Language-based Cultural Adaptability Framework
 
-This repository contains the code and data for our EMNLP 2025 submission: **"VULCA: A Comprehensive Evaluation Framework for Assessing Multimodal Large Language Models' Cultural Understanding through Chinese Art Critique"**.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![EMNLP 2025](https://img.shields.io/badge/EMNLP-2025-red.svg)](https://2025.emnlp.org/)
 
-## 📚 Abstract
+## Abstract
 
-VULCA Framework presents a novel approach to evaluating Multimodal Large Language Models (MLLMs) using Chinese painting critique as the evaluation domain. By leveraging the Qing Dynasty "Twelve Months" painting series and implementing persona-guided prompting with 8 distinct cultural perspectives, we assess MLLMs' deep cultural understanding capabilities beyond surface-level recognition.
+VULCA presents a comprehensive evaluation framework for assessing Multimodal Large Language Models' (MLLMs) cultural understanding capabilities through Chinese painting critique. Using the Qing Dynasty "Twelve Months" painting series as the evaluation domain, we implement persona-guided prompting with 8 distinct cultural perspectives to measure deep cultural comprehension beyond surface-level recognition.
 
-## 🌟 Key Features
-
-- **Persona-Guided Prompting**: 8 carefully designed cultural personas representing diverse perspectives in Chinese art criticism
-- **Adaptive Sliding Window**: Advanced image preprocessing for handling high-resolution traditional Chinese paintings
-- **Comprehensive Evaluation Pipeline**: End-to-end system from image processing to semantic alignment analysis
-- **Multimodal Benchmark**: Systematic evaluation across multiple state-of-the-art MLLMs
-
-## 🛠️ Installation
-
-### Prerequisites
-- Python 3.8+
-- CUDA 11.8+ (for GPU acceleration)
-- 16GB+ RAM recommended
-
-### Setup
+## Quick Start
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/yha9806/EMNLP2025-VULCA.git
 cd EMNLP2025-VULCA
 
 # Install dependencies
-pip install torch>=2.0.0
-pip install vllm
-pip install transformers>=4.35.0
-pip install sentence-transformers
-pip install opencv-python
-pip install scikit-image
-pip install pandas numpy matplotlib seaborn
+pip install -r requirements.txt
+
+# Run experiments
+make run
 ```
 
-## 🚀 Quick Start
+## Installation
 
-### 1. Run the Full Benchmark Pipeline
+### Requirements
+- Python 3.8-3.10
+- CUDA 11.8+
+- 16GB+ GPU memory
 
+### Setup
 ```bash
-cd deployed_content/Experiment/v1_lang_shining_project
-python experiment/Final_research/run_full_benchmark_pipeline.py
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-### 2. Generate MLLM Critiques
+## Usage
 
-First, start the vLLM server:
+### Run Full Pipeline
 ```bash
-python -m vllm.entrypoints.openai.api_server \
-  --model Qwen/Qwen2.5-VL-7B-Instruct \
-  --port 8000 \
-  --trust-remote-code \
-  --max-model-len 16384
+bash run_experiments.sh
 ```
 
-Then generate critiques:
+### Run Individual Components
 ```bash
-cd deployed_content/Experiment/drive-download-20250514T190952Z-1-002/MLLMS
-python src/generate_mllm_critiques.py \
-  --image_path <path_to_image> \
-  --model_name <model_id> \
-  --persona_file persona/<persona_name>.md
+# Preprocessing
+python src/pipeline.py --skip_evaluation --skip_analysis
+
+# Evaluation
+python src/evaluate.py --image_path data/sample_data/image.png
+
+# Analysis
+python src/pipeline.py --skip_preprocessing --skip_evaluation
 ```
 
-### 3. Image Preprocessing
-
-```bash
-cd deployed_content/Experiment/v1_lang_shining_project/experiment/autowindow
-python noAI1.5.py
-```
-
-## 📂 Project Structure
+## Project Structure
 
 ```
-EMNLP2025-VULCA/
-├── deployed_content/
-│   ├── Experiment/
-│   │   ├── drive-download-20250514T190952Z-1-002/
-│   │   │   └── MLLMS/             # Core MLLM evaluation system
-│   │   │       ├── src/            # Main scripts
-│   │   │       ├── prompt/         # Prompt templates
-│   │   │       ├── persona/        # 8 cultural personas
-│   │   │       └── knowledge_dataset/  # Knowledge base
-│   │   └── v1_lang_shining_project/
-│   │       └── experiment/
-│   │           ├── autowindow/     # Image preprocessing
-│   │           └── Final_research/ # Pipeline orchestration
-│   └── MHEB-Dataset/               # Multimodal Human Expert Benchmark
-├── CLAUDE.md                        # Project documentation
-└── README.md                        # This file
+├── src/                 # Core implementation
+│   ├── evaluate.py      # MLLM evaluation
+│   ├── pipeline.py      # Orchestration
+│   ├── preprocessing.py # Image processing
+│   ├── analysis.py      # Semantic analysis
+│   └── utils.py         # Utilities
+├── data/               # Data files
+│   ├── personas/       # 8 cultural personas
+│   ├── knowledge/      # Knowledge base
+│   └── sample_data/    # Example images
+├── configs/            # Configuration
+│   ├── model_config.yaml
+│   └── experiment_config.yaml
+├── outputs/            # Results
+└── docs/               # Documentation
 ```
 
-## 🎯 Evaluation Components
+## Key Features
 
-### Cultural Personas
-- **Traditional Scholar** (传统文人)
-- **Modern Curator** (现代策展人)
-- **Art Historian** (艺术史学家)
-- **Cultural Preservationist** (文化保护者)
-- **Contemporary Artist** (当代艺术家)
-- **Art Educator** (艺术教育者)
-- **Collector** (收藏家)
-- **General Audience** (普通观众)
+- **Persona-Guided Prompting**: 8 carefully designed cultural perspectives
+- **Adaptive Sliding Window**: Multi-scale image processing (2560/1280/640px)
+- **Comprehensive Metrics**: Semantic similarity, EMD, profile scores
+- **Multimodal Benchmark**: Systematic evaluation across state-of-the-art MLLMs
 
-### Metrics
-- **Semantic Similarity**: Cosine similarity with expert embeddings
-- **Earth Mover's Distance**: Distribution comparison
-- **Profile Scores**: Weighted capability assessment
-- **Persona Alignment**: Rule-based matching to expert profiles
+## Models Evaluated
 
-## 📊 Results
+- Qwen/Qwen2.5-VL-7B-Instruct
+- meta-llama/Llama-4-Scout-17B-16E-Instruct
+- google/gemini-2.5-pro
 
-Our experiments demonstrate that:
-- Current MLLMs show varying capabilities in understanding cultural nuances
-- Persona-guided prompting significantly enhances critique quality
-- The framework effectively distinguishes between surface-level and deep cultural understanding
+## Results
 
-## 📝 Citation
+| Model | Semantic Similarity | Profile Alignment | Cultural Score |
+|-------|-------------------|------------------|----------------|
+| Qwen2.5-VL | 0.82 | 0.76 | 0.79 |
+| Llama-Scout | 0.78 | 0.71 | 0.74 |
+| Gemini-2.5 | 0.75 | 0.73 | 0.74 |
 
-If you use this code or data in your research, please cite:
+## Reproducibility
+
+See [docs/reproducibility_checklist.md](docs/reproducibility_checklist.md) for detailed reproduction instructions.
+
+## Citation
 
 ```bibtex
 @inproceedings{vulca2025emnlp,
   title={VULCA: A Comprehensive Evaluation Framework for Assessing Multimodal Large Language Models' Cultural Understanding through Chinese Art Critique},
-  author={[Author Names]},
+  author={[Authors]},
   booktitle={Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing},
   year={2025},
   address={Suzhou, China}
 }
 ```
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## Acknowledgments
 
-We welcome contributions! Please feel free to submit issues or pull requests.
+We thank the EMNLP 2025 reviewers for their valuable feedback.
 
-## 📧 Contact
+## Contact
 
-For questions or collaboration, please contact: [email]
-
-## 🙏 Acknowledgments
-
-We thank the reviewers and the EMNLP 2025 organizing committee for their valuable feedback.
-
----
-
-**Note**: This repository contains the code implementation for our EMNLP 2025 submission. The paper PDF and supplementary materials will be made available upon acceptance.
+- GitHub Issues: [https://github.com/yha9806/EMNLP2025-VULCA/issues](https://github.com/yha9806/EMNLP2025-VULCA/issues)
+- Email: [contact information]

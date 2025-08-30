@@ -1,0 +1,52 @@
+experiment:
+  name: "VULCA Benchmark Evaluation"
+  description: "Evaluating MLLMs on Chinese painting critique"
+  
+  # Data settings
+  batch_size: 16
+  num_personas: 8
+  num_paintings: 12
+  
+  # Preprocessing
+  preprocessing:
+    window_sizes: [2560, 1280, 640]
+    stride_factor: 0.75
+    output_size: 640
+    saliency_threshold_low: 0.25
+    saliency_threshold_high: 0.6
+  
+  # Evaluation
+  evaluation:
+    models:
+      - "qwen25_vl"
+      - "llama_scout"
+    personas:
+      - "郭熙_Guo_Xi"
+      - "苏轼_Su_Shi"
+      - "托马斯修士_Brother_Thomas"
+      - "约翰_罗斯金_John_Ruskin"
+      - "佐拉妈妈_Mama_Zola"
+      - "阿里斯_索恩博士_Dr_Aris_Thorne"
+      - "埃琳娜_佩特洛娃教授_Professor_Elena_Petrova"
+      - "冈仓天心_Okakura_Kakuzo"
+  
+  # Analysis
+  analysis:
+    embedding_model: "BAAI/bge-large-zh-v1.5"
+    embedding_dim: 1024
+    metrics:
+      - "cosine_similarity"
+      - "earth_movers_distance"
+      - "profile_scores"
+  
+  # Output
+  output_dir: "outputs/"
+  seed: 42
+  
+# Paths
+paths:
+  data_dir: "data/"
+  personas_dir: "data/personas/"
+  knowledge_dir: "data/knowledge/"
+  outputs_dir: "outputs/"
+  configs_dir: "configs/"

@@ -1,0 +1,21 @@
+models:
+  qwen25_vl:
+    name: "Qwen/Qwen2.5-VL-7B-Instruct"
+    api_endpoint: "http://localhost:8000/v1/chat/completions"
+    max_new_tokens: 2048
+    temperature: 0.7
+    top_p: 0.95
+    
+  llama_scout:
+    name: "meta-llama/Llama-4-Scout-17B-16E-Instruct"
+    api_endpoint: "http://localhost:8000/v1/chat/completions"
+    max_new_tokens: 2048
+    temperature: 0.7
+    
+  gemini:
+    name: "google/gemini-2.5-pro"
+    api_endpoint: "https://api.google.com/v1/chat/completions"
+    max_new_tokens: 2048
+    temperature: 0.7
+    
+default_model: "qwen25_vl"

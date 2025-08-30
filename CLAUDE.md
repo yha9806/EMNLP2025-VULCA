@@ -259,7 +259,10 @@ result/
 └── all_models_features_consolidated.csv    # Combined MLLM features
 ```
 
-## 8 Cultural Personas
+## Persona System Clarification
+
+### 8 Cultural Persona Cards (Experimental Interventions)
+These are used as prompts to guide MLLM generation during experiments:
 
 1. **郭熙 (Guo Xi)** - Song Dynasty landscape painter perspective
 2. **苏轼 (Su Shi)** - Song Dynasty literati and poet perspective
@@ -269,3 +272,30 @@ result/
 6. **阿里斯·索恩博士 (Dr. Aris Thorne)** - Contemporary Western academic perspective
 7. **埃琳娜·佩特洛娃教授 (Professor Elena Petrova)** - Russian art history perspective
 8. **冈仓天心 (Okakura Kakuzo)** - Japanese aesthetic philosophy perspective
+
+### 5 Core Personas (Evaluation Categories)
+These are data-driven categories for classifying generated critiques:
+
+1. **Comprehensive Analyst (博学通论型)** - Broad analytical coverage
+2. **Historically Focused Critic (历史考据型)** - Historical context emphasis
+3. **Technique & Style Focused Critic (技艺风格型)** - Technical analysis focus
+4. **Theory & Comparison Focused Critic (理论比较型)** - Theoretical framework
+5. **General Descriptive Profile (泛化描述型)** - General descriptive approach
+
+## Feature Dimensions
+
+The framework uses a **47-dimensional feature vector** comprising:
+- **38 Primary Labels**:
+  - 10 Evaluative Stance labels
+  - 17 Feature Focus labels
+  - 11 Commentary Quality labels
+- **9 Derived Dimensions**:
+  - 5 Profile alignment scores
+  - 4 Supplementary analytical dimensions
+
+## MHEB Dataset Details
+
+- **163 expert commentaries** from 9 distinguished art historians
+- **Expert sources**: Xue Yongnian (薛永年, 17 texts), Wang Di (汪涤, 28 texts), Yang Danxia (杨丹霞, 28 texts), Nie Chongzheng (聂崇正, 15 texts), Shan Guoqiang (单国强, 18 texts), Li Shi (李湜, 17 texts), Xu Jianrong (徐建融, 17 texts), Zhu Wanzhang (朱万章, 11 texts), Chen Yunru (陈韵如, 12 texts)
+- **Annotation**: 3 annotators with graduate-level training in Chinese art history
+- **Inter-Annotator Agreement**: Fleiss' kappa = 0.78, ICC = 0.82
