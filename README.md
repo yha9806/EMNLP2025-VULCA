@@ -4,6 +4,20 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![EMNLP 2025](https://img.shields.io/badge/EMNLP-2025-red.svg)](https://2025.emnlp.org/)
 
+## 🎯 Branch Navigation
+
+This repository uses a dual-branch structure for clarity:
+
+| Branch | Purpose | Size | Use Case |
+|--------|---------|------|-----------|
+| **main** (current) | Core implementation | <10MB | Quick reproduction |
+| **[research](https://github.com/yha9806/EMNLP2025-VULCA/tree/research)** | Complete experiments | ~50MB | Full validation |
+
+### For Reviewers
+- **Quick Start**: Stay on `main` branch, run `./run_experiments.sh`
+- **Deep Dive**: `git checkout research` for all experimental code and data
+- **Paper Figures**: See `research` branch `/paper_artifacts/` directory
+
 ## Abstract
 
 VULCA presents a comprehensive evaluation framework for assessing Multimodal Large Language Models' (MLLMs) cultural understanding capabilities through Chinese painting critique. Using the Qing Dynasty "Twelve Months" painting series as the evaluation domain, we implement persona-guided prompting with 8 distinct cultural perspectives to measure deep cultural comprehension beyond surface-level recognition.
@@ -18,8 +32,12 @@ cd EMNLP2025-VULCA
 # Install dependencies
 pip install -r requirements.txt
 
-# Run experiments
-make run
+# Option 1: Quick evaluation (main branch)
+python src/vulca.py --image data/samples/january_sample.jpg
+
+# Option 2: Full experiments (research branch)
+git checkout research
+python experiments/v1_lang_shining_project/experiment/Final_research/run_full_benchmark_pipeline.py
 ```
 
 ## Installation

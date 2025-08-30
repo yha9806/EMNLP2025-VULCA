@@ -1,0 +1,65 @@
+{
+  "model": {
+    "name": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "api_endpoint": "http://localhost:8000/v1/chat/completions",
+    "parameters": {
+      "max_tokens": 2048,
+      "temperature": 0.7,
+      "top_p": 0.9
+    }
+  },
+  "preprocessing": {
+    "enabled": true,
+    "window_sizes": [2560, 1280, 640],
+    "output_size": 640,
+    "saliency_threshold_low": 0.25,
+    "saliency_threshold_high": 0.6,
+    "stride_factors": {
+      "low": 0.9,
+      "medium": 0.75,
+      "high": 0.5
+    }
+  },
+  "evaluation": {
+    "personas": [
+      "郭熙_Guo_Xi",
+      "苏轼_Su_Shi",
+      "托马斯修士_Brother_Thomas",
+      "约翰_罗斯金_John_Ruskin",
+      "佐拉妈妈_Mama_Zola",
+      "阿里斯_索恩博士_Dr_Aris_Thorne",
+      "埃琳娜_佩特洛娃教授_Professor_Elena_Petrova",
+      "冈仓天心_Okakura_Kakuzo"
+    ],
+    "metrics": [
+      "semantic_similarity",
+      "earth_movers_distance",
+      "profile_alignment"
+    ]
+  },
+  "analysis": {
+    "embedding_model": "BAAI/bge-large-zh-v1.5",
+    "embedding_dim": 1024,
+    "clustering": {
+      "method": "kmeans",
+      "n_clusters": 5
+    },
+    "visualization": {
+      "methods": ["tsne", "umap"],
+      "perplexity": 30,
+      "n_neighbors": 15
+    }
+  },
+  "performance": {
+    "results": {
+      "semantic_similarity": 0.78,
+      "emd_distance": 0.23,
+      "profile_accuracy": 0.82
+    },
+    "best_personas": [
+      "郭熙_Guo_Xi",
+      "苏轼_Su_Shi"
+    ],
+    "notes": "Best performance achieved with Qwen2.5-VL using traditional Chinese art personas"
+  }
+}

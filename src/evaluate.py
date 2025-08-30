@@ -1,25 +1,17 @@
 #!/usr/bin/env python
 """
 VULCA Framework - MLLM Evaluation Module
-Generates art critiques using Multimodal Large Language Models (MLLMs)
+Simplified version for EMNLP 2025
 """
 
-import argparse
 import os
 import json
 import base64
 from datetime import datetime
 from typing import Dict, Optional, Any
 import requests
-import yaml
 
 
-def load_config(config_path: str = "configs/model_config.yaml") -> Dict:
-    """Load model configuration from YAML file."""
-    if os.path.exists(config_path):
-        with open(config_path, 'r', encoding='utf-8') as f:
-            return yaml.safe_load(f)
-    return {}
 
 
 def encode_image_to_base64(image_path: str) -> tuple[str, str]:
@@ -123,14 +115,9 @@ def call_mllm_api(
         raise RuntimeError(f"HTTP error during API call: {e}")
 
 
-def load_prompt(prompt_file: Optional[str] = None) -> str:
-    """Load prompt from file or return default prompt."""
-    if prompt_file and os.path.exists(prompt_file):
-        with open(prompt_file, 'r', encoding='utf-8') as f:
-            return f.read()
-    
-    # Default prompt
-    return """你是一位专业的艺术评论家。请仔细观察提供的图像，然后撰写一段约300-500字的艺术评论。
+def construct_prompt(persona_text: str = "", knowledge_context: str = "") -> str:
+    """Construct evaluation prompt with optional persona and knowledge enhancement."""
+    base_prompt = """你是一位专业的艺术评论家。请仔细观察提供的图像，然后撰写一段约300-500字的艺术评论。
 
 你的评论应包括：
 1. 整体印象与主题内容
@@ -140,22 +127,25 @@ def load_prompt(prompt_file: Optional[str] = None) -> str:
 5. 文化内涵
 
 请确保评论语言流畅，观点明确，分析具有深度。"""
+    
+    # Add persona if provided
+    if persona_text:
+        base_prompt = f"{persona_text}\n\n{base_prompt}"
+    
+    # Add knowledge context if provided
+    if knowledge_context:
+        base_prompt = f"{base_prompt}\n\n相关背景知识：\n{knowledge_context}"
+    
+    return base_prompt
 
 
-def load_persona(persona_file: Optional[str] = None) -> str:
-    """Load persona description from file."""
-    if persona_file and os.path.exists(persona_file):
-        with open(persona_file, 'r', encoding='utf-8') as f:
-            return f.read()
-    return ""
 
 
 def generate_critique(
     image_path: str,
     model_name: str,
-    prompt_file: Optional[str] = None,
-    persona_file: Optional[str] = None,
-    knowledge_file: Optional[str] = None,
+    persona_text: str = "",
+    knowledge_base: Optional[Dict] = None,
     api_endpoint: str = "http://localhost:8000/v1/chat/completions",
     model_params: Optional[Dict] = None,
     output_dir: str = "outputs/critiques"
@@ -166,24 +156,27 @@ def generate_critique(
     Args:
         image_path: Path to input image
         model_name: Model identifier
-        prompt_file: Path to prompt template file
-        persona_file: Path to persona description file
-        knowledge_file: Path to knowledge base file
+        persona_text: Persona description text
+        knowledge_base: Knowledge base dictionary
         api_endpoint: API endpoint URL
         model_params: Model generation parameters
         output_dir: Directory to save generated critiques
         
     Returns:
-        Path to saved critique file
+        Generated critique text
     """
-    # Load components
-    base_prompt = load_prompt(prompt_file)
-    persona = load_persona(persona_file)
+    # Extract relevant knowledge if provided
+    knowledge_context = ""
+    if knowledge_base:
+        # Simple knowledge extraction (can be enhanced)
+        contexts = []
+        for category in knowledge_base.get('categories', []):
+            if 'content' in category:
+                contexts.append(category['content'][:200])  # Limit context length
+        knowledge_context = "\n".join(contexts)
     
-    # Construct full prompt
-    full_prompt = base_prompt
-    if persona:
-        full_prompt = f"{persona}\n\n{base_prompt}"
+    # Construct prompt
+    full_prompt = construct_prompt(persona_text, knowledge_context)
     
     # Generate critique
     critique_text = call_mllm_api(
@@ -194,98 +187,50 @@ def generate_critique(
         model_params=model_params
     )
     
-    # Save output
-    os.makedirs(output_dir, exist_ok=True)
+    # Save output if directory specified
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        base_name = os.path.splitext(os.path.basename(image_path))[0]
+        output_file = os.path.join(
+            output_dir,
+            f"{base_name}_{timestamp}.txt"
+        )
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(critique_text)
+        print(f"✓ Critique saved to: {output_file}")
     
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    base_name = os.path.splitext(os.path.basename(image_path))[0]
-    model_safe = model_name.replace('/', '_')
-    
-    output_file = os.path.join(
-        output_dir,
-        f"{base_name}_{model_safe}_{timestamp}.txt"
-    )
-    
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write(critique_text)
-    
-    print(f"Critique saved to: {output_file}")
-    return output_file
+    return critique_text
 
 
 def main():
-    """Main entry point for CLI."""
-    parser = argparse.ArgumentParser(
-        description="Generate art critiques using MLLMs"
-    )
-    parser.add_argument(
-        "--image_path", 
-        type=str, 
-        required=True,
-        help="Path to the input image"
-    )
-    parser.add_argument(
-        "--model_name",
-        type=str,
-        default="Qwen/Qwen2.5-VL-7B-Instruct",
-        help="Model identifier"
-    )
-    parser.add_argument(
-        "--prompt_file",
-        type=str,
-        help="Path to prompt template file"
-    )
-    parser.add_argument(
-        "--persona_file",
-        type=str,
-        help="Path to persona description file"
-    )
-    parser.add_argument(
-        "--api_endpoint",
-        type=str,
-        default="http://localhost:8000/v1/chat/completions",
-        help="API endpoint URL"
-    )
-    parser.add_argument(
-        "--config",
-        type=str,
-        default="configs/model_config.yaml",
-        help="Path to configuration file"
-    )
-    parser.add_argument(
-        "--output_dir",
-        type=str,
-        default="outputs/critiques",
-        help="Output directory"
-    )
-    parser.add_argument(
-        "--test",
-        action="store_true",
-        help="Run in test mode"
-    )
+    """Command-line interface."""
+    import argparse
+    parser = argparse.ArgumentParser(description="Generate art critiques using MLLMs")
+    parser.add_argument("--image", required=True, help="Path to input image")
+    parser.add_argument("--model", default="Qwen/Qwen2.5-VL-7B-Instruct", help="Model name")
+    parser.add_argument("--persona", help="Path to persona file")
+    parser.add_argument("--api", default="http://localhost:8000/v1/chat/completions", help="API endpoint")
+    parser.add_argument("--output", default="outputs/critiques", help="Output directory")
     
     args = parser.parse_args()
     
-    if args.test:
-        print("Evaluation module loaded successfully.")
-        return
-    
-    # Load config if exists
-    config = load_config(args.config)
-    model_params = config.get('models', {}).get(args.model_name, {})
+    # Load persona if specified
+    persona_text = ""
+    if args.persona and os.path.exists(args.persona):
+        with open(args.persona, 'r', encoding='utf-8') as f:
+            persona_text = f.read()
     
     # Generate critique
-    output_file = generate_critique(
-        image_path=args.image_path,
-        model_name=args.model_name,
-        prompt_file=args.prompt_file,
-        persona_file=args.persona_file,
-        api_endpoint=args.api_endpoint,
-        model_params=model_params,
-        output_dir=args.output_dir
+    critique = generate_critique(
+        image_path=args.image,
+        model_name=args.model,
+        persona_text=persona_text,
+        api_endpoint=args.api,
+        output_dir=args.output
     )
     
-    print(f"Generation complete: {output_file}")
+    print(f"\nGenerated critique:\n{critique[:500]}...")
 
 
 if __name__ == "__main__":
