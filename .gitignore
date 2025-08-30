@@ -78,3 +78,7 @@ deployed_content/Paper_writing/
 
 # Tasks folder
 .tasks/
+
+# Claude Code local settings
+.claude/
+CLAUDE.md
