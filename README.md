@@ -70,7 +70,7 @@ bash run_experiments.sh
 python src/pipeline.py --skip_evaluation --skip_analysis
 
 # Evaluation
-python src/evaluate.py --image_path data/sample_data/image.png
+python src/evaluate.py --image data/samples/april_sample.jpg
 
 # Analysis
 python src/pipeline.py --skip_preprocessing --skip_evaluation
@@ -88,7 +88,7 @@ python src/pipeline.py --skip_preprocessing --skip_evaluation
 ├── data/               # Data files
 │   ├── personas/       # 8 cultural personas
 │   ├── knowledge/      # Knowledge base
-│   └── sample_data/    # Example images
+│   └── samples/        # Example images
 ├── configs/            # Configuration
 │   ├── model_config.yaml
 │   └── experiment_config.yaml
