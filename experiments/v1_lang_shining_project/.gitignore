@@ -1,0 +1,31 @@
+# Standard Python ignores
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE settings / logs
+.vscode/
+.idea/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Project Specific
+
+# Ignore all versioned results directories for v1_lang_shining experiment
+text-image-training/project/experiments/v1_lang_shining/results*/
+
+# Ignore large data files if not using Git LFS
+# text-image-training/project/data/datasets/raw/
+# text-image-training/project/data/datasets/v1_lang_shining/images/processed/
+# text-image-training/project/experiments/v1_lang_shining/results/**/*.npz
+# text-image-training/project/experiments/v1_lang_shining/results/**/*.csv 

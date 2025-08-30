@@ -1,0 +1,126 @@
+# 角色提示作为干预 (Persona Prompting as Intervention)
+
+## 主要文献引用
+
+1. Wang et al. (2023a): PersonaLLM: Investigating the ability of LLMs to understand and represent different personas
+@inproceedings{jiang-etal-2024-personallm,
+    title = "{P}ersona{LLM}: Investigating the Ability of Large Language Models to Express Personality Traits",
+    author = "Jiang, Hang  and
+      Zhang, Xiajie  and
+      Cao, Xubo  and
+      Breazeal, Cynthia  and
+      Roy, Deb  and
+      Kabbara, Jad",
+    editor = "Duh, Kevin  and
+      Gomez, Helena  and
+      Bethard, Steven",
+    booktitle = "Findings of the Association for Computational Linguistics: NAACL 2024",
+    month = jun,
+    year = "2024",
+    address = "Mexico City, Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-naacl.229/",
+    doi = "10.18653/v1/2024.findings-naacl.229",
+    pages = "3605--3627",
+    abstract = "Despite the many use cases for large language models (LLMs) in creating personalized chatbots, there has been limited research on evaluating the extent to which the behaviors of personalized LLMs accurately and consistently reflect specific personality traits. We consider studying the behavior of LLM-based agents which we refer to as LLM personas and present a case study with GPT-3.5 and GPT-4 to investigate whether LLMs can generate content that aligns with their assigned personality profiles. To this end, we simulate distinct LLM personas based on the Big Five personality model, have them complete the 44-item Big Five Inventory (BFI) personality test and a story writing task, and then assess their essays with automatic and human evaluations. Results show that LLM personas' self-reported BFI scores are consistent with their designated personality types, with large effect sizes observed across five traits. Additionally, LLM personas' writings have emerging representative linguistic patterns for personality traits when compared with a human writing corpus. Furthermore, human evaluation shows that humans can perceive some personality traits with an accuracy of up to 80{\%}. Interestingly, the accuracy drops significantly when the annotators were informed of AI authorship."
+}
+（这个内容可以被使用，证明角色卡标签是有效的，所以我们将这个角色卡用于了我们的实验里面）
+
+2. Wang et al. (2024): RoleLLM: Benchmarking, Eliciting, and Enhancing Role-Playing Abilities of Large Language Models
+@inproceedings{wang-etal-2024-rolellm,
+  title = "{R}ole{LLM}: Benchmarking, Eliciting, and Enhancing Role-Playing Abilities of Large Language Models",
+  author = "Wang, Noah  and
+    Peng, Z.y.  and
+    Que, Haoran  and
+    Liu, Jiaheng  and
+    Zhou, Wangchunshu  and
+    Wu, Yuhan  and
+    Guo, Hongcheng  and
+    Gan, Ruitong  and
+    Ni, Zehao  and
+    Yang, Jian  and
+    Zhang, Man  and
+    Zhang, Zhaoxiang  and
+    Ouyang, Wanli  and
+    Xu, Ke  and
+    Huang, Wenhao  and
+    Fu, Jie  and
+    Peng, Junran",
+  editor = "Ku, Lun-Wei  and
+    Martins, Andre  and
+    Srikumar, Vivek",
+  booktitle = "Findings of the Association for Computational Linguistics: ACL 2024",
+  month = aug,
+  year = "2024",
+  address = "Bangkok, Thailand",
+  publisher = "Association for Computational Linguistics",
+  url = "https://aclanthology.org/2024.findings-acl.878/",
+  doi = "10.18653/v1/2024.findings-acl.878",
+  pages = "14743--14777",
+  abstract = "The advent of Large Language Models (LLMs) has paved the way for complex tasks such as role-playing, which enhances user interactions by enabling models to imitate various characters. However, the closed-source nature of state-of-the-art LLMs and their general-purpose training limit role-playing optimization. In this paper, we introduce RoleLLM, a framework to benchmark, elicit, and enhance role-playing abilities in LLMs. RoleLLM comprises four stages: (1) Role Profile Construction for 100 roles; (2) Context-Based Instruction Generation (Context-Instruct) for role-specific knowledge extraction; (3) Role Prompting using GPT (RoleGPT) for speaking style imitation; and (4) Role-Conditioned Instruction Tuning (RoCIT) for fine-tuning open-source models along with role customization. By Context-Instruct and RoleGPT, we create RoleBench, the first systematic and fine-grained character-level benchmark dataset for role-playing with 168,093 samples. Moreover, RoCIT on RoleBench yields RoleLLaMA (English) and RoleGLM (Chinese), significantly enhancing role-playing abilities and even achieving comparable results with RoleGPT (using GPT-4)."
+}
+（这是更大规模的角色卡研究）
+
+3. Chen et al. (2023): Culturally appropriate responses from large language models
+@inproceedings{NEURIPS2024_9a16935b,
+  author = {Li, Cheng and Chen, Mengzhuo and Wang, Jindong and Sitaram, Sunayana and Xie, Xing},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor = {A. Globerson and L. Mackey and D. Belgrave and A. Fan and U. Paquet and J. Tomczak and C. Zhang},
+  pages = {84799--84838},
+  publisher = {Curran Associates, Inc.},
+  title = {CultureLLM: Incorporating Cultural Differences into Large Language Models},
+  url = {https://proceedings.neurips.cc/paper_files/paper/2024/file/9a16935bf54c4af233e25d998b7f4a2c-Paper-Conference.pdf},
+  volume = {37},
+  year = {2024}
+ }
+语义增强，数据库搭建这样的内容。
+ （这个内容，可以被作为拓展之一，附加在目前的内容论述里面就可以） 
+
+4. Liu et al. (2023): Culturally-aware large language models
+（这个内容检索不到，删掉）
+
+这是一个新的内容：
+@misc{liu2025culturevlmcharacterizingimprovingcultural,
+  title={CultureVLM: Characterizing and Improving Cultural Understanding of Vision-Language Models for over 100 Countries}, 
+  author={Shudong Liu and Yiqiao Jin and Cheng Li and Derek F. Wong and Qingsong Wen and Lichao Sun and Haipeng Chen and Xing Xie and Jindong Wang},
+  year={2025},
+  eprint={2501.01282},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2501.01282}, 
+}
+为了解决文化歧视问题，提出的一个方案，但是这个方案比较浅显，没有办法更深的理解文化的符号和含义，相比之下，我们的实验是更加深入，及深入到具体符号和文本之内的文化连接的理解能力测试和质量评估。
+（可以作为反面内容）
+
+5. Wilf et al. (2024): Think Twice: Perspective-taking and reasoning in LLMs
+@inproceedings{wilf-etal-2024-think,
+  title = "Think Twice: Perspective-Taking Improves Large Language Models' Theory-of-Mind Capabilities",
+  author = "Wilf, Alex  and
+    Lee, Sihyun  and
+    Liang, Paul Pu  and
+    Morency, Louis-Philippe",
+  editor = "Ku, Lun-Wei  and
+    Martins, Andre  and
+    Srikumar, Vivek",
+  booktitle = "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+  month = aug,
+  year = "2024",
+  address = "Bangkok, Thailand",
+  publisher = "Association for Computational Linguistics",
+  url = "https://aclanthology.org/2024.acl-long.451/",
+  doi = "10.18653/v1/2024.acl-long.451",
+  pages = "8292--8308",
+  abstract = "Human interactions are deeply rooted in the interplay of thoughts, beliefs, and desires made possible by Theory of Mind (ToM): our cognitive ability to understand the mental states of ourselves and others. Although ToM may come naturally to us, emulating it presents a challenge to even the most advanced Large Language Models (LLMs). Recent improvements to LLMs' reasoning capabilities from simple yet effective prompting techniques such as Chain-of-Thought (CoT) have seen limited applicability to ToM. In this paper, we turn to the prominent cognitive science theory {\textquotedblleft}Simulation Theory{\textquotedblright} to bridge this gap. We introduce SimToM, a novel two-stage prompting framework inspired by Simulation Theory`s notion of perspective-taking. To implement this idea on current ToM benchmarks, SimToM first filters context based on what the character in question knows before answering a question about their mental state. Our approach, which requires no additional training and minimal prompt-tuning, shows substantial improvement over existing methods, and our analysis reveals the importance of perspective-taking to Theory-of-Mind capabilities. Our findings suggest perspective-taking as a promising direction for future research into improving LLMs' ToM capabilities."
+}
+提示词工程，结果优化很多，但是使用的模型很老，可能新的大语言模型的一次性回答就质量很好了。另外，这个可以做一个小的参考。
+
+6. Zhang and Huang (2023): Multimodal persona-based approaches for guiding visual interpretation
+（这个内容检索不到，删掉）
+
+
+7. Wang et al. (2023b): Cross-modal personalization for multimodal large language models
+（这个内容检索不到，删掉）
+
+## 研究概述
+
+研究表明大型语言模型能够有效地采用角色形象，影响其输出和推理模式。这种能力已被用于各种应用，包括增强文化意识和改进专业领域的推理。在多模态环境中，基于角色的方法在引导视觉解释方面显示出潜力。本研究专门研究角色卡作为增强MLLM在中国艺术评论能力的干预机制，分析不同专家角色如何影响向量空间表示和特定能力。 
