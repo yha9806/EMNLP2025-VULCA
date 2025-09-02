@@ -1,7 +1,11 @@
-# Paper source files - EXCLUDED FROM REPOSITORY
-deployed_content/Paper_writing/
+# Large experimental data and results - EXCLUDED FROM CAMERA READY
+deployed_content/
+full_data/
+experiments/
+outputs/
 
-# Git repositories
+# Paper files (provided separately)
+paper/
 VULCA-Framework/
 
 # LaTeX auxiliary files
@@ -82,3 +86,16 @@ deployed_content/Paper_writing/
 # Claude Code local settings
 .claude/
 CLAUDE.md
+
+# Data files (keep only samples and essential files)
+data/*
+!data/samples/
+!data/README.md
+!data/personas/
+!data/knowledge/
+
+# Examples (if not necessary)
+examples/
+
+# Environment files
+.env.example
